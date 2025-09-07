@@ -5,9 +5,9 @@
 - **VISHNU SAI PADYALA**  
   - UFID:32712860
 
-## GitHub Repository
+## GitController Repository
 
-[GitHub Link]([https://github.com/your-repo-link](https://github.com/VISHNU07202003/COP5615-Project-1-Gleam-Implementation-))
+[GitController Link]([https://github.com/your-repo-link](https://github.com/VISHNU07202003/COP5615-Project-1-Gleam-Implementation-))
 
 # Project Description
 
@@ -15,15 +15,15 @@ This project demonstrates distributed task allocation using the **actor model in
 
 ## Overview
 
-The program uses three types of actors: `Hub`, `Worker`, and `Main`.
+The program uses three types of actors: `Controller`, `Task`, and `Main`.
 
-- The **Hub** is responsible for managing workers, distributing work, and aggregating results.
-- The **Workers** compute whether the sum of squares of numbers in their assigned range is a perfect square.
+- The **Controller** is responsible for managing workers, distributing work, and aggregating results.
+- The **Tasks** compute whether the sum of squares of numbers in their assigned range is a perfect square.
 - The **Main** function initializes the hub, creates the workers, and starts computation based on command-line arguments.
 
 ## Actors and Functionality
 
-### Hub Actor
+### Controller Actor
 - **Purpose**: Central controller that distributes tasks and collects results.
 - **Fields**:  
   - `next`: Next task index to assign.  
@@ -36,14 +36,14 @@ The program uses three types of actors: `Hub`, `Worker`, and `Main`.
 - **Messages**:  
   - `Begin(hub, upto, width, pool)`: Start computation with given parameters.  
   - `Noted(start)`: Report a successful result.  
-  - `Ready(who)`: Worker signals readiness for more work.  
+  - `Ready(who)`: Task signals readiness for more work.  
 
 - **Behavior**:  
   - Spawns workers and assigns them ranges.  
   - Collects results and prints them when all work is done.  
   - Shuts down workers gracefully.  
 
-### Worker Actor
+### Task Actor
 - **Purpose**: Performs computation for a given range.  
 - **Messages**:  
   - `Work(start, myself)`: Process range starting at `start`.  
@@ -56,9 +56,9 @@ The program uses three types of actors: `Hub`, `Worker`, and `Main`.
   - Requests more work when finished.  
 
 ### Helper Functions
-- **`isqrt(n)`**: Integer square root using iterative approximation.  
-- **`is_square(n)`**: Checks if a number is a perfect square.  
-- **`sumsq_range(a, b)`**: Computes sum of squares between `a` and `b`.  
+- **`integer_sqrt(n)`**: Integer square root using iterative approximation.  
+- **`is_square_renamed(n)`**: Checks if a number is a perfect square.  
+- **`sumsq_range_renamed(a, b)`**: Computes sum of squares between `a` and `b`.  
 
 ### Main Function
 - Reads command-line arguments:  
@@ -79,7 +79,7 @@ The program uses three types of actors: `Hub`, `Worker`, and `Main`.
 Compile and run the program:
 
 ```bash
-gleam run 10000000 24 8
+gleam run lukas.gleam 10000000 24 8
 ```
 
 Here:  
@@ -89,11 +89,45 @@ Here:
 
 ## Example Output
 
+Running with parameters (e.g. `gleam run 10000000 24 8`) produces:
+
 ```bash
-24
-48
-72
-...
+1
+9
+20
+25
+44
+76
+121
+197
+304
+353
+540
+856
+1301
+2053
+3112
+3597
+5448
+8576
+12981
+20425
+30908
+35709
+54032
+84996
+128601
+202289
+306060
+353585
+534964
+841476
+1273121
+2002557
+3029784
+3500233
+5295700
+8329856
 ```
 
 If no results are found:  
@@ -108,16 +142,17 @@ If computation exceeds timeout:
 timeout
 ```
 
+
 ## System Diagram
 
-The following diagram shows the interaction between the **Hub** and **Workers** using the actor model:
+The following diagram shows the interaction between the **Controller** and **Tasks** using the actor model:
 
 ```mermaid
 graph TD
-    A[Main] -->|Begin| B[Hub]
-    B -->|Assign Work| C1[Worker 1]
-    B -->|Assign Work| C2[Worker 2]
-    B -->|Assign Work| C3[Worker N]
+    A[Main] -->|Begin| B[Controller]
+    B -->|Assign Work| C1[Task 1]
+    B -->|Assign Work| C2[Task 2]
+    B -->|Assign Work| C3[Task N]
 
     C1 -->|Ready/Noted| B
     C2 -->|Ready/Noted| B
