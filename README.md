@@ -160,3 +160,41 @@ graph TD
 
     B -->|Results| A
 ```
+Performance Analysis
+Benchmark Results (n = 10,000,000, k = 24)
+
+The program was benchmarked with different pool sizes using PowerShell's Measure-Command.
+Here are the observed results:
+
+Pool=1 | Elapsed (ms): 444.87
+Pool=2 | Elapsed (ms): 463.37
+Pool=4 | Elapsed (ms): 445.24
+Pool=8 | Elapsed (ms): 422.40
+
+Throughput (ranges per second)
+
+Pool=1 → ~22.5 million/sec
+
+Pool=2 → ~21.6 million/sec
+
+Pool=4 → ~22.5 million/sec
+
+Pool=8 → ~23.7 million/sec
+
+Parallel Efficiency
+
+Pool=1 → 100% (baseline)
+
+Pool=2 → ~96% (slight overhead)
+
+Pool=4 → ~100% (no gain)
+
+Pool=8 → ~106% (small improvement)
+
+Summary
+
+The program sustains ~22–24 million range checks per second.
+
+Best elapsed time: ~422 ms with 8 workers.
+
+Scaling efficiency is low, because actor communication overhead dominates when n=10,000,000 and k=24.
