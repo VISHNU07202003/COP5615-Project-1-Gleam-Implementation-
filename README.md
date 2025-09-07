@@ -4,6 +4,8 @@
 
 - **VISHNU SAI PADYALA**  
   - UFID:32712860
+- **SRIKAR PANUGANTI**
+  - UFID:38909216
 
 ## GitController Repository
 
@@ -91,46 +93,7 @@ Here:
 
 Running with parameters (e.g. `gleam run 10000000 24 8`) produces:
 
-```bash
-1
-9
-20
-25
-44
-76
-121
-197
-304
-353
-540
-856
-1301
-2053
-3112
-3597
-5448
-8576
-12981
-20425
-30908
-35709
-54032
-84996
-128601
-202289
-306060
-353585
-534964
-841476
-1273121
-2002557
-3029784
-3500233
-5295700
-8329856
-```
-
-If no results are found:  
+no results are found:  
 
 ```bash
 none
